@@ -5,49 +5,86 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    public int speed = 5;
+    Rigidbody rb;
+    public int speed;
     bool direction = false;
-    bool canMove = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        moveBall();
+
+        if(GameManager.instance.started && !GameManager.instance.gameOver)
         {
-            move();
+            switchDirection();
         }
 
+        Debug.DrawRay(transform.position, Vector3.down, Color.red);
+
+        if(!Physics.Raycast(transform.position, Vector3.down, 1f))
+        {
+            GameManager.instance.gameOver = true;
+            rb.velocity = new Vector3(0,-30f,0);
+            fallDownBallChecking();
+        }
+
+
+        // My way to get move ball
+
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    canMove = true;
+        //    direction = !direction;
+        //}
+        //fallDownBallChecking();
+    }
+
+    void moveBall()
+    {
         if (Input.GetMouseButtonDown(0))
         {
-            canMove = true;
+            rb.velocity = new Vector3(speed, 0, 0);
+            GameManager.instance.started = true;
             direction = !direction;
         }
-        fallDownBallChecking();
+
     }
 
-    void fallDownBallChecking ( )
+    void switchDirection ()
     {
-        if(transform.position.y < -20)
+        if (direction)
         {
-            Destroy(gameObject);
+            rb.velocity = new Vector3(0, 0, speed);
+        }
+        else
+        {
+            rb.velocity = new Vector3(speed, 0, 0);
         }
     }
 
-    void move()
+    // My way to get move ball
+    //void move()
+    //{
+    //    if(!direction)
+    //    { 
+    //        transform.Translate(Vector3.right * Time.deltaTime * speed);
+    //    }else
+    //    {
+    //        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+    //    }
+    //}
+    void fallDownBallChecking()
     {
-        if(!direction)
-        { 
-            transform.Translate(Vector3.right * Time.deltaTime * speed);
-        }else
+        if (transform.position.y < -30f)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            Destroy(gameObject);
         }
     }
 }
