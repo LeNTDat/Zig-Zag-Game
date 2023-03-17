@@ -23,7 +23,7 @@ public class FallDownCheck : MonoBehaviour
     {
         if(col.gameObject.tag == "Ball" || GameManager.instance.gameOver)
         {
-            Invoke("fallDown", 0.5f);
+            Invoke("fallDown", 0.2f);
         }
     }
 

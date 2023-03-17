@@ -6,6 +6,7 @@ using UnityEngine;
 public class SpawnFlatform : MonoBehaviour
 {
     public GameObject platForm;
+    public GameObject diamond;
     Vector3 lastPos;
     float size;
 
@@ -39,6 +40,15 @@ public class SpawnFlatform : MonoBehaviour
         pos.x += size;
         lastPos = pos;
         Instantiate(platForm, lastPos,Quaternion.identity);
+
+        int random = Random.Range(0, 4);
+        if(random < 1)
+        {
+            Instantiate(diamond, new Vector3 (pos.x, pos.y + 1.2f , pos.z), diamond.transform.rotation);
+        }
+        else if(random >= 1) {
+            return;
+        }
     }
 
     void spawnZ()
@@ -47,6 +57,16 @@ public class SpawnFlatform : MonoBehaviour
         pos.z += size;
         lastPos = pos;
         Instantiate(platForm, lastPos, Quaternion.identity);
+
+        int random = Random.Range(0, 4);
+        if (random < 1)
+        {
+            Instantiate(diamond, new Vector3(pos.x, pos.y + 1.2f, pos.z), diamond.transform.rotation);
+        }
+        else if (random >= 1)
+        {
+            return;
+        }
     }
 
     void FirstSpawn()
