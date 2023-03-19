@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class FallDownCheck : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class FallDownCheck : MonoBehaviour
 
     private void OnTriggerExit(Collider col)
     {
-        if(col.gameObject.tag == "Ball" || GameManager.instance.gameOver)
+        if(col.gameObject.tag == "Ball")
         {
             Invoke("fallDown", 0.2f);
         }
@@ -29,6 +30,7 @@ public class FallDownCheck : MonoBehaviour
 
     void fallDown()
     {
+        ScoreManager.instance.increaseScore();
         GetComponentInParent<Rigidbody>().useGravity = true;
         Destroy(transform.parent.gameObject , 1f);
     }

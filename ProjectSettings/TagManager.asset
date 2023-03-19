@@ -7,6 +7,10 @@ TagManager:
   - Platform
   - Ball
   - Diamond
+  - GameOver
+  - Score
+  - Home
+  - RetryButton
   layers:
   - Default
   - TransparentFX

@@ -37,6 +37,7 @@ public class Player : MonoBehaviour
         {
             GameManager.instance.gameOver = true;
             rb.velocity = new Vector3(0,-30f,0);
+            GameManager.instance.gameOverCheck();
             fallDownBallChecking();
         }
 

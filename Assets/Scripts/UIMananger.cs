@@ -8,6 +8,13 @@ public class UIMananger : MonoBehaviour
 
     public GameObject TapToStart;
 
+    public GameObject[] OverGame;
+
+    public GameObject HighestScore;
+    public GameObject panelScore;
+    public GameObject Startpanel;
+
+
     public static UIMananger Instance;
 
     private void Awake()
@@ -21,6 +28,7 @@ public class UIMananger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -29,8 +37,31 @@ public class UIMananger : MonoBehaviour
 
     }
 
+    void highScore () {
+        if (ScoreManager.instance.newRecord)
+        {
+            HighestScore.SetActive(true);
+            HighestScore.GetComponentInChildren<Animator>().Play("BlinkScore");
+        }
+    }
+
+    public void GameOverasse () {
+        Invoke("highScore", 1f);
+
+        panelScore.SetActive(false);
+        
+        foreach (GameObject game in OverGame)
+        {
+            game.SetActive(true);
+            game.GetComponent<Animator>().Play(game.tag);
+        }
+
+    }
+
     public void ToStart()
     {
+        panelScore.SetActive(true);
+        Startpanel.SetActive(false);
         TapToStart.GetComponent<Animator>().Play("DropStarter");
     }
 }

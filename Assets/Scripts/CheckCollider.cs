@@ -32,7 +32,9 @@ public class CheckCollider : MonoBehaviour
 
 
     void fallDownCheck () {
+        GameObject deads = Instantiate(particle, transform.position, transform.rotation) as GameObject;
         Destroy(gameObject);
+        Destroy(deads,1f);
     }
 
 }
